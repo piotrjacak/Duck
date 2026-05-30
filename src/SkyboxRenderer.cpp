@@ -5,8 +5,6 @@ SkyboxRenderer::SkyboxRenderer(GLuint cubeMapId)
     : cubeMapId(cubeMapId),
       shader("shaders/skybox.vs", "shaders/skybox.fs")
 {
-    // Szescian [-1, 1]^3, 36 wierzcholkow (6 scian x 2 trojkaty x 3 wierzcholki),
-    // wierzcholki nawiniete CCW patrzac od zewnatrz.
     float vertices[] = {
         // +X
          1.f, -1.f, -1.f,    1.f,  1.f, -1.f,    1.f,  1.f,  1.f,
@@ -45,9 +43,6 @@ SkyboxRenderer::~SkyboxRenderer() {
 }
 
 void SkyboxRenderer::draw(const Camera& camera, float aspect) {
-    // Rysujemy *od srodka* — kamera jest na zewnatrz, ale chcemy widziec wewnetrzne sciany.
-    // Wierzcholki CCW na zewnatrz: zewnetrzne strony to "front" => culujemy je,
-    // zostaja wewnetrzne (back) strony scian.
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
 
